@@ -11,26 +11,47 @@
 <body>
     <h1>相册</h1>
     <ul id="imagegallery">
-        <li><a href="images/1.jpg" title="这是城市的景色" >城市</a>
+        <li><a href="images/1.jpg" title="这是城市的景色" >
+
             <img src="images/1.jpg" alt="城市"/>
+        </a>
+
         </li>
-        <li><a href="images/2.jpg" title="这是山野的景色" >山野</a>
+        <li><a href="images/2.jpg" title="这是山野的景色" >
+
             <img src="images/2.jpg" alt="山野"/>
+        </a>
+
         </li>
-        <li><a href="images/3.jpg" title="这是雪原的景色" >雪原</a>
+        <li><a href="images/3.jpg" title="这是雪原的景色" >
+
             <img src="images/3.jpg" alt="雪原"/>
+        </a>
+
         </li>
-        <li><a href="images/4.jpg" title="这是山丘的景色" >山丘</a>
+        <li><a href="images/4.jpg" title="这是山丘的景色" >
+
             <img src="images/4.jpg" alt="山丘"/>
+        </a>
+
         </li>
-        <li><a href="images/5.jpg" title="这是云海的景色" >云海</a>
+        <li><a href="images/5.jpg" title="这是云海的景色" >
+
             <img src="images/5.jpg" alt="雪原"/>
+        </a>
+
         </li>
-        <li><a href="images/6.jpg" title="这是雪松的景色" >雪松</a>
+        <li><a href="images/6.jpg" title="这是雪松的景色" >
+
             <img src="images/6.jpg" alt="云海"/>
+        </a>
+
         </li>
-        <li><a href="images/7.jpg" title="这是山泉的景色" >山泉</a>
+        <li><a href="images/7.jpg" title="这是山泉的景色" >
+
             <img src="images/7.jpg" alt="山泉"/>
+        </a>
+
         </li>
     </ul>
     <img id="placeholder" src="images/1.jpg" alt="风景"/>
@@ -39,22 +60,24 @@
         window.onload=function(){
             //countBodyChildren();
         };
-        function prepareGllery(){
-            if(!document.getElementsByTagName) return false;
-            if(!document.getElementById) return false;
-            if(!document.getElementById("imagegallery"))return false;
-            var gallery=document.getElementById("imagegallery");
-            var links=gallery.getElementsByTagName("a");
-            for(var i=0;i<links.length;i++){
-                links[i].onclick=function(){
-                    return showPic(this) ? false:true;                }
+        function prepareGallery() {
+            if (!document.getElementsByTagName) return false;
+            if (!document.getElementById) return false;
+            if (!document.getElementById("imagegallery")) return false;
+            var gallery = document.getElementById("imagegallery");
+            var links = gallery.getElementsByTagName("a");
+            for ( var i=0; i < links.length; i++) {
+                links[i].onclick = function() {
+                    return showPic(this);
+                }
+                links[i].onkeypress = links[i].onclick;
             }
         }
         function showPic(whichpic){
             if(!document.getElementById('placeholder')) return false;
             var source=whichpic.getAttribute('href');
             var placeholder=document.getElementById('placeholder');
-            if(placeholder.nodeName!="IMG") return false;
+           if(placeholder.nodeName !="IMG") return false;
             placeholder.setAttribute('src',source);
             if(document.getElementById("description")){
                 var text=whichpic.getAttribute('title') ? whichpic.getAttribute("title"):"";
@@ -63,12 +86,24 @@
                     description.firstChild.nodeValue=text;
                 }
             }
-           return true;
+           return false;
         }
         function countBodyChildren(){
             var body_element=document.getElementsByTagName("body")[0];
             alert(body_element.childNodes.length);
         }
+        function addLoadEvent(func) {
+            var oldonload = window.onload;
+            if (typeof window.onload != 'function') {
+                window.onload = func;
+            } else {
+                window.onload = function() {
+                    oldonload();
+                    func();
+                }
+            }
+        }
+        addLoadEvent(prepareGallery);
     </script>
 </body>
 </html>
