@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>ImageShow</title>
+    <link rel="stylesheet" href="layout.css"/>
+    <style>
+
+    </style>
+</head>
+<body>
+    <h1>相册</h1>
+    <ul>
+        <li><a href="images/1.jpg" title="这是城市的景色" onclick="showPic(this);return false">城市</a></li>
+        <li><a href="images/2.jpg" title="这是山野的景色" onclick="showPic(this);return false">山野</a></li>
+        <li><a href="images/3.jpg" title="这是雪原的景色" onclick="showPic(this);return false">雪原</a></li>
+        <li><a href="images/4.jpg" title="这是山丘的景色" onclick="showPic(this);return false">山丘</a></li>
+        <li><a href="images/5.jpg" title="这是云海的景色" onclick="showPic(this);return false">云海</a></li>
+        <li><a href="images/6.jpg" title="这是雪松的景色" onclick="showPic(this);return false">雪松</a></li>
+        <li><a href="images/7.jpg" title="这是山泉的景色" onclick="showPic(this);return false">山泉</a></li>
+    </ul>
+    <img id="placeholder" src="images/1.jpg" alt="风景"/>
+    <p id="description">这是城市的景色</p>
+    <script>
+        window.onload=function(){
+            //countBodyChildren();
+        };
+        function showPic(whichpic){
+            var text=whichpic.getAttribute('title');
+            var description=document.getElementById("description");
+            var source=whichpic.getAttribute('href');
+            var placeholder=document.getElementById('placeholder');
+            placeholder.setAttribute('src',source);
+            description.firstChild.nodeValue=text;
+        }
+        function countBodyChildren(){
+            var body_element=document.getElementsByTagName("body")[0];
+            alert(body_element.childNodes.length);
+        }
+    </script>
+</body>
+</html>
