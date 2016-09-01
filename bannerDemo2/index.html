@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>homework</title>
+    <style>
+        body {
+            background-color: #DD5F03;
+            width: 100%;
+        }
+
+        body>ul {
+            width: 1005px;
+            position: relative;
+            margin-right: auto;
+            margin-left: auto;
+            padding: 0px;
+            height: 331px;
+        }
+
+        body>ul>li {
+            float: left;
+            padding: 0px;
+            margin: 0px;
+            position: absolute;
+            top: 0px;
+        ;
+            list-style: none;
+        }
+
+        .img_control>li {
+            opacity: 0;
+            transition: all .8s linear;
+        }
+
+        .img_control>li:first-child {
+            opacity: 1;
+        }
+
+        .control {
+            clear: both;
+            /*overflow: hidden;*/
+        }
+
+        .control ul {
+            margin: 0px;
+            width: 1005px;
+            position: relative;
+            margin-right: auto;
+            margin-left: auto;
+            padding: 0px;
+            height: 50px;
+        }
+
+        .control li {
+            margin-left: 1px;
+            width: 200px;
+            text-align: center;
+            height: 50px;
+            list-style: none;
+            float: left;
+            line-height: 50px;
+            background-color: #E9A069;
+            color: #D23A00;
+            font-size: 50px;
+        }
+
+        .control li {
+            position: absolute;
+            bottom: 0px;
+            cursor: pointer;
+            transition: all .5s linear;
+        }
+
+        .control li:nth-of-type(1) {
+            height: 80px;
+            line-height: 80px;
+            left: 0px;
+        }
+
+        .control li:nth-of-type(2) {
+            left: 201px;
+        }
+
+        .control li:nth-of-type(3) {
+            left: 402px;
+        }
+
+        .control li:nth-of-type(4) {
+            right: 201px;
+        }
+
+        .control li:nth-of-type(5) {
+            right: 0px;
+        }
+    </style>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+<ul class="img_control">
+    <li class="img_li"><img src="images/1.png" alt=""></li>
+    <li class="img_li"><img src="images/2.png" alt=""></li>
+    <li class="img_li"><img src="images/3.png" alt=""></li>
+    <li class="img_li"><img src="images/4.png" alt=""></li>
+    <li class="img_li"><img src="images/5.png" alt=""></li>
+</ul>
+<div class="control">
+    <ul>
+        <li><i class="fa fa-mobile-phone"></i></li>
+        <li><i class="fa fa-mobile-phone"></i></li>
+        <li><i class="fa fa-mobile-phone"></i></li>
+        <li><i class="fa fa-mobile-phone"></i></li>
+        <li><i class="fa fa-mobile-phone"></i></li>
+    </ul>
+</div>
+</body>
+<script>
+    var time2;
+    (function () {
+        var timer=autoLunbo(0);
+        document.querySelectorAll('.control>ul>li').forEach(function (element, index) {
+            element.addEventListener('click', function (e) {
+                //                初始化所有的img透明度都为0
+                console.log(document.querySelectorAll('.img_control>li').length)
+                for (var i = 0; i < document.querySelectorAll('.img_control>li').length; i++) {
+                    document.querySelectorAll('.img_control>li')[i].style.opacity = "0";
+                }
+                document.querySelectorAll('.img_control>li')[index].style.opacity = "1";
+                //初始化所有的按钮高度为50px
+                for (var i = 0; i < document.querySelectorAll('.control>ul>li').length; i++) {
+                    document.querySelectorAll('.control>ul>li')[i].style.height = "50px";
+                    document.querySelectorAll('.control>ul>li')[i].style.lineHeight = "50px";
+                }
+                document.querySelectorAll('.control>ul>li')[index].style.height = "80px";
+                document.querySelectorAll('.control>ul>li')[index].style.lineHeight = "80px";
+                clearInterval(timer);
+                clearInterval(time2);
+                time2=autoLunbo(index + 1);
+            })
+        });
+    })()
+
+    function autoLunbo(ind) {
+        var timer=setInterval(function () {
+            ind = ind > 4 ? 0 : ind;
+            for (var i = 0; i < document.querySelectorAll('.img_control>li').length; i++) {
+                document.querySelectorAll('.img_control>li')[i].style.opacity = "0";
+            }
+            document.querySelectorAll('.img_control>li')[ind].style.opacity = "1";
+            //初始化所有的按钮高度为50px
+            for (var i = 0; i < document.querySelectorAll('.control>ul>li').length; i++) {
+                document.querySelectorAll('.control>ul>li')[i].style.height = "50px";
+                document.querySelectorAll('.control>ul>li')[i].style.lineHeight = "50px";
+            }
+            document.querySelectorAll('.control>ul>li')[ind].style.height = "80px";
+            document.querySelectorAll('.control>ul>li')[ind].style.lineHeight = "80px";
+            ind++;
+//            console.log(ind);
+            ind = ind > 4 ? 0 : ind;
+        }, 1000);
+        return timer;
+    }
+</script>
+
+</html>
