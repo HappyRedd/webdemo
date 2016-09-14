@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<!--
+    作者：Aren
+    时间：16-9-6下午12:25.
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <style>
+        body{
+            /*margin: 0px;*/
+            padding: 0px;
+        }
+        #mainControl{
+            background-image: url("res/4.png");
+            height: 568px;
+            width: 320px;
+            position: relative;
+            left: 50%;
+            margin-left: -160px;
+            overflow: hidden;
+        }
+        #mainControl img{
+            position: absolute;
+        }
+        #scroe{
+            position: absolute;
+            top: 0px;
+        }
+        #bg1{
+            position: absolute;
+            height: 568px;
+            width: 320px;
+            background: black;
+            color: white;
+            z-index: 99;
+            opacity: 0;
+            display: table;
+        }
+        #bg1 p{
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+        .restart{
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+            color: white;
+            background-color: black;
+            margin-left: auto;
+            margin-right: auto;
+            border: 2px solid white;
+            cursor: pointer;
+            text-align: center;
+            position: absolute;
+            left: 110px;
+            top: 320px;;
+        }
+        #bg0{
+            position: absolute;
+            height: 568px;
+            width: 320px;
+            background: black;
+            color: white;
+            z-index: 100;
+            opacity: 1;
+            display: table;
+            opacity: .5;
+        }
+    </style>
+</head>
+<body>
+    <div id="mainControl">
+        <div id="bg0">
+            <div class="restart" id="begin">开始游戏</div>
+        </div>
+        <div id="bg1">
+            <p>Gmae Over</p>
+            <div class="restart" id="restart">重玩</div>
+        </div>
+    </div>
+    <div id="scroe">
+        分数：0
+    </div>
+</body>
+<script>
+    var bg0=document.getElementById("bg0");
+    var begin=document.getElementById("begin");
+    var bg1=document.getElementById("bg1");
+    var res=document.getElementById("restart");
+    var fenshu=0;
+    var scroe=document.getElementById("scroe");
+    <!--获取节点-->
+    var getMain=document.getElementById("mainControl");
+//    创建飞机对象
+    function airPhlan(imgSrc) {
+//        创建一个img节点
+        this.imgNode=document.createElement("img");
+        this.posY=0;
+//        随机生成一个x
+        this.posX=parseInt(Math.random()*290);
+//        生成速度
+        this.speed=12;
+//        是否死亡
+        this.isDie=false;
+//        死亡时间
+        this.dieTime=10;
+//        初始化飞机位置
+        this.initPos=function () {
+//            设置img节点的src属性值
+            this.imgNode.src=imgSrc;
+//            初始化位置
+            this.imgNode.style.left=this.posX+"px";
+            this.imgNode.style.top=this.posY+"px";
+            //          在获得的节点上添加img节点
+            getMain.appendChild(this.imgNode);
+        };
+//        移动小飞机
+        this.move=function () {
+            this.imgNode.style.top=parseInt(this.imgNode.style.top)+this.speed+"px";
+        };
+//        初始化
+        this.initPos();
+    }
+//    移动方法
+    function move() {
+//        上
+        if(up){
+            console.log(111);
+            userPlan.imgNode.style.top=parseInt(userPlan.imgNode.style.top)-userPlan.speed+"px";
+            if(parseInt(userPlan.imgNode.style.top)<=0){
+                userPlan.imgNode.style.top=0+"px";
+            }
+        }
+//        下
+        if(down){
+            userPlan.imgNode.style.top=parseInt(userPlan.imgNode.style.top)+userPlan.speed+"px";
+//           console.log(userP.imgNode.style.top)
+            if(parseInt(userPlan.imgNode.style.top)>=490){
+                userPlan.imgNode.style.top=490+"px";
+            }
+        }
+//        右
+        if(right){
+            userPlan.imgNode.style.left=parseInt(userPlan.imgNode.style.left)+userPlan.speed+"px";
+            if(parseInt(userPlan.imgNode.style.left)>=270){
+                userPlan.imgNode.style.left=270+"px";
+            }
+        }
+//        左
+        if(left){
+            userPlan.imgNode.style.left=parseInt(userPlan.imgNode.style.left)-userPlan.speed+"px";
+            if(parseInt(userPlan.imgNode.style.left)<=-10){
+                userPlan.imgNode.style.left=-10+"px";
+            }
+        }
+    }
+//    创建用户飞机
+    function userPlan() {
+        this.imgNode = document.createElement("img");
+        this.posX = 130;
+        this.posY = 470;
+        this.speed = 1;
+//        创建img节点
+        this.initUserP = function () {
+//            设置img节点的src属性值
+            this.imgNode.src = "res/5.gif";
+//            初始化位置
+            this.imgNode.style.left = this.posX + "px";
+            this.imgNode.style.top = this.posY + "px";
+//          在获得的节点上添加img节点
+            getMain.appendChild(this.imgNode);
+        };
+        this.initUserP();
+//       发射子弹
+        this.attack = function () {
+//            创建子弹对象
+        };
+    }
+//    子弹对象
+    function bullet(x,y,speed) {
+        this.imgNode=document.createElement("img");
+        this.posX=x;
+        this.posY=y;
+//        子弹出现位置
+        this.initBullet=function () {
+            this.imgNode.src="res/6.png";
+            this.imgNode.style.left=this.posX+"px";
+            this.imgNode.style.top=this.posY+"px";
+            getMain.appendChild(this.imgNode);
+        }
+        this.initBullet();
+//        移动
+        this.bulletMove=function () {
+            this.imgNode.style.top=parseInt(this.imgNode.style.top)-speed+"px";
+        }
+    }
+//    创建一个飞机数组
+    var airArray=new Array();
+//   实例化飞机对象
+    function createPlan() {
+        var plan=new airPhlan("res/2.png");
+        airArray.push(plan);
+
+    }
+//    移动
+    function movePlan() {
+            for(var i=0;i<airArray.length;i++){
+                if (airArray[i].isDie==false){
+                    airArray[i].move();
+//               当小飞机移动超出高度，删除节点
+                    if (parseInt(airArray[i].imgNode.style.top)>=568){
+                        getMain.removeChild(airArray[i].imgNode);
+//                数组方法，从当前位置删除1个
+                        airArray.splice(i,1);
+                    }
+                }
+                else {
+                    airArray[i].dieTime--;
+                    if (airArray[i].dieTime<=0){
+                        getMain.removeChild(airArray[i].imgNode);
+//                数组方法，从当前位置删除1个
+                        airArray.splice(i,1);
+//                        显示分数
+                        fenshu++;
+                        scroe.innerHTML="分数："+fenshu;
+                    }
+                }
+            }
+    }
+//    实例化用户飞机对象
+    var userPlan=new userPlan();
+//    var time3=setInterval(userPlan.attack(),10);
+    var up=false;
+    var down=false;
+    var left=false;
+    var right=false;
+//    键盘监听
+    document.addEventListener("keydown",function (e) {
+        if (!e){
+            e=window.event;
+        }
+        if(e.keyCode==38){
+            up=true;
+        }
+        if(e.keyCode==37){
+            left=true;
+        }
+        if(e.keyCode==39){
+            right=true;
+        }
+        if(e.keyCode==40){
+            down=true;
+        }
+    })
+    document.addEventListener("keyup",function (e) {
+        if (!e){
+            e=window.event;
+        }
+        if(e.keyCode==38){
+            up=false;
+        }
+        if(e.keyCode==37){
+            left=false;
+        }
+        if(e.keyCode==39){
+            right=false;
+        }
+        if(e.keyCode==40){
+            down=false;
+        }
+    })
+//    实例化一个子弹对象
+    var bulletArray=new Array();
+    function creatBullet() {
+        var bullet1=new bullet((parseInt(userPlan.imgNode.style.left)+33),parseInt(userPlan.imgNode.style.top),10);
+        bulletArray.push(bullet1);
+    }
+//    子弹移动
+    function bulletMove() {
+        for (var i=0;i<bulletArray.length;i++){
+            bulletArray[i].bulletMove();
+            if (parseInt(bulletArray[i].imgNode.style.top)<=0){
+                getMain.removeChild(bulletArray[i].imgNode);
+                bulletArray.splice(i,1);
+            }
+        }
+    }
+//   子弹碰撞
+    function hitPlan() {
+        for(var z=0;z<bulletArray.length;z++){
+            for (var x=0;x<airArray.length;x++){
+//                获取子弹 飞机当前的坐标
+                var airLeft=parseInt(airArray[x].imgNode.style.left);
+                var airTop=parseInt(airArray[x].imgNode.style.top);
+                var buLeft=parseInt(bulletArray[z].imgNode.style.left);
+                var buTop=parseInt(bulletArray[z].imgNode.style.top);
+//                当子弹的横坐标满足条件时
+                if ((buLeft>=airLeft)&&(buLeft<=(airLeft+34))){
+//                    当子弹的纵坐标满足条件时
+                    if((buTop<=airTop)&&(buTop>=(airTop-24))){
+                        getMain.removeChild(bulletArray[z].imgNode);
+                        bulletArray.splice(z,1);
+                        airArray[x].imgNode.src="res/1.gif";
+                        airArray[x].isDie=true;
+                    }
+                }
+            }
+        }
+    }
+//    飞机碰撞
+    function airBoom() {
+        for (var i=0;i<airArray.length;i++){
+            var airLeft=parseInt(airArray[i].imgNode.style.left);
+            var airTop=parseInt(airArray[i].imgNode.style.top);
+            if(airArray[i].isDie==false){
+                if ((airLeft>=parseInt(userPlan.imgNode.style.left))&&(airLeft<=(parseInt(userPlan.imgNode.style.left)+66))){
+                    if(airTop>=parseInt(userPlan.imgNode.style.top)&&(airTop<=(parseInt(userPlan.imgNode.style.top)+80))){
+                        userPlan.imgNode.src="res/3.gif";
+                        clearInterval(time1);
+                        clearInterval(time2);
+                        clearInterval(time4);
+                        clearInterval(time5);
+                        clearInterval(time6);
+                        clearInterval(time7);
+                        clearInterval(time8);
+                        if(bg1.style.opacity=="0"||bg1.style.opacity==""){
+                            bg1.style.opacity=".5";
+                            bg1.style.zIndex="120";
+                        }
+                    }
+                }
+            }
+        }
+    }
+    //    循环实例化小飞机对象
+    res.addEventListener('click',function (e) {
+        window.location.reload();
+    })
+    var time1;
+    var time2;
+    var time4;
+    var time5;
+    var time6;
+    var time7;
+    var time8;
+    function beginGame() {
+        bg0.style.opacity="0";
+        time1=setInterval(createPlan,2000);
+        time2=setInterval(movePlan,100);
+        time4=setInterval(move);
+        time5=setInterval(creatBullet,500);
+        time6=setInterval(bulletMove,100);
+        time7=setInterval(hitPlan,5);
+        time8=setInterval(airBoom,5);
+    }
+    begin.addEventListener('click',beginGame);
+   </script>
+</html>
