@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/parabola.js"></script>
+    <style type="text/css">
+        .boy {
+            background: url("images/boy.png") no-repeat;background-size: contain;
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            top: 200px;
+            left: 10px;
+        }
+
+    </style>
+
+</head>
+<body style="height: 768px;width: 1024px;border: 1px solid red">
+<div id="boy" class="boy"></div>
+<script>
+    var timer=null;
+    function moveUp(iTarX,iTarY){
+        var oDiv=document.getElementById('boy');
+        var timer=setInterval(function(){
+            var speed=5;
+            if( oDiv.style.left==iTarX||  oDiv.style.top==iTarY){
+                clearInterval(timer)
+            }else{
+                oDiv.style.left = oDiv.offsetLeft + speed + 'px';
+                oDiv.style.top = oDiv.offsetTop -speed + 'px';
+            }
+        },30)
+    }
+
+    function moveDown(iTarX,iTarY){
+        var oDiv=document.getElementById('boy');
+        var timer=setInterval(function(){
+            var speed=5;
+            var sca=2;
+            if( oDiv.style.left==iTarX||oDiv.style.top==iTarY){
+                clearInterval(timer)
+            }else{
+                oDiv.style.left = oDiv.offsetLeft + speed + 'px';
+                oDiv.style.top = oDiv.offsetTop +speed + 'px';
+                oDiv.style.height=oDiv.offsetHeight+sca+"px";
+                oDiv.style.width=oDiv.offsetWidth+sca+"px";
+            }
+        },30)
+    }
+    window.onload=function(){
+
+        var amov=setInterval(function(){
+            moveUp("500px","10px");
+        },300);
+        setTimeout(function(){ clearInterval(amov);},
+                1000);
+        setTimeout(function(){moveDown("900px","300px");},
+                1000);
+    }
+</script>
+</body>
+</html>

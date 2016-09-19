@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/jquery.min.js"></script>
+    <style type="text/css">
+        .boy {
+            background: url("images/boy.png") no-repeat;background-size: contain;
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            top: 380px;
+            left: 100px;
+        }
+    </style>
+
+</head>
+<body>
+<div id="boy" class="boy"></div>
+<script>
+    function moveD(iTarX,iTarY){
+        var oDiv=document.getElementById('boy');
+        var timer=setInterval(function(){
+            var speed=5;
+            var timer=null;
+            if( oDiv.style.left==iTarX||  oDiv.style.top==iTarY){
+               clearInterval(timer)
+            }else{
+                oDiv.style.left = oDiv.offsetLeft + speed + 'px';
+                oDiv.style.top = oDiv.offsetTop -3 + 'px';
+            }
+        },30)
+    }
+window.onload=function(){
+    var oDiv=document.getElementById('boy');
+    console.log(oDiv);
+    console.log("1:"+oDiv.clientLeft+":"+oDiv.clientTop);
+    console.log("2:"+oDiv.offsetLeft+":"+oDiv.offsetTop);
+    oDiv.onclick=function(ev){
+        var evt=ev||event;
+        console.log(evt.clientX+":"+evt.clientY);
+    }
+   moveD("500px","100px");
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>走路动画</title>
+    <script language =javascript >
+        var picSub = 0;
+        var noa = 0;
+        var time = 150; //时间间隔(毫秒)
+        var pic1 = "images/01.png";
+        var pic2 = "images/02.png";
+        var pic3 = "images/03.png";
+        var pic4 = "images/01.png";
+        var picArr = [pic1, pic2, pic3, pic4]; //定义数组，并将图片的位置所对应的变量放入其中
+        setInterval(changeImg, time); //使图片按一定时间切换，感官上就是人在行走
+        function changeImg()
+        {
+            var xElem = document.getElementById("ID_IMG_ROLE");
+            if(picSub == picArr.length-1){
+                picSub = 0;
+            }else{
+                picSub += 1;
+            } //判断是否超出数组长度，若超出，便使数组下标归0,使其不超出
+
+            xElem.src = picArr[picSub]; //切换图片
+        }
+        function changeFight()
+        {
+            pic1 = "images/fight01.png";
+            pic2 = "images/fight02.png";
+            pic3 = "images/fight03.png";
+            pic4 = "images/fight04.png";
+            picArr = [pic1, pic2, pic3, pic4];//点击时，picArr数组中的内容改变了。
+
+            setTimeout(reduction, 1000);//1秒钟后，恢复数组中的内容
+        }
+        function reduction()
+        {
+            pic1 = "images/01.png";
+            pic2 = "images/02.png";
+            pic3 = "images/03.png";
+            pic4 = "images/01.png";
+            picArr = [pic1, pic2, pic3, pic4];
+        }
+    </script>
+</head>
+<body >
+<div style="border:10px solid green; height:150px; width:250px; background-color:lightblue;">
+    <img id="ID_IMG_ROLE" style="margin:50px 0 0 50px;" src ="images/01.png" onclick="changeFight()"/>
+</div>
+</body>
+</html>
