@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .wrap {
+            position: relative;
+            width: 1000px;
+            height: 550px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            margin-top: 50px;
+        }
+        #fall {
+            width: 20px;
+            font-size: 1px;
+            height: 20px;
+            background: #000;
+            position: absolute;
+            top: 500px;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+<input type="button" value="演示" onclick="demo()">;
+<div class="wrap">
+    <div id="fall">o</div>
+</div>
+<script>
+    function demo() {
+        var x, y, a,t;
+        x=1;
+        y=-1;
+        a=0.0098;
+        t=5;
+        var f=document.getElementById('fall');
+        var Vx=parseInt(x),
+                Vy=parseInt(y),
+                g=a,
+                t=parseInt(t),
+                h=0,l=0,Sx=0,Sy=0;
+        var i=setInterval(function(){
+            if(f){
+                Sx+=Vx*t;
+                l=Sx;
+                Vy+=g*t;
+                h+=Vy*t;
+                f.style.left=l+'px';
+                f.style.top=h+'px';
+                if(h>500||l>900)clearInterval(i);
+            }
+        },t);
+    }
+     // demo(2,-2,0.0098,10);
+
+</script>
+</body>
+</html>

@@ -109,6 +109,7 @@
             var x, y;
             if (now > this.end) {
                 // ‘À––Ω· ¯
+               // console.log(this.end);
                 x = this.driftX;
                 y = this.driftY;
                 this.domove(x, y);

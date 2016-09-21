@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        .boy {
+            background: url("images/boy.png") no-repeat;background-size: contain;
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            top: 800px;
+            left: 0px;
+        }
+
+    </style>
+
+</head>
+<body style="height: 768px;width: 1024px;border: 1px solid red">
+<div id="boy" class="boy"></div>
+<script>
+    var oDiv=document.getElementById('boy');
+    var a=1, b=1,c=1;
+    //var x=iStarX,y=iStarY;
+    //var x1=oDiv.offsetLeft,y1=oDiv.offsetTop;
+   // var x2=iTarX,y2=iTarY;
+   // var x3=iTopX,y3=iTopY;
+    var x1=10,x2=350,x3=150;
+    var y1=10,y2=300,y3=0;
+    // 根据两点坐标以及曲率确定运动曲线函数（也就是确定a, b的值）
+    /* 公式： y = a*x*x + b*x + c;
+     * y1 = a * x1*x1 + b*x1+c;
+     * y2 = a * x2*x2 + b*x2+c;
+     * y3 = a * x3*x3 + b*x3+c;
+     */
+　　　   a=(y1-b*x1-c)/x1*x1;
+   　　　 b=(y2-a*x2*x2-c)/x2;
+  　　　　c=y3-a*x3*x3-b*x3;
+    function toInteger(text) {
+        text = parseInt(text);
+        return isFinite(text) ? text : 0;
+    }
+    function now() {
+        return +new Date();
+    }
+    var ts=now();
+    //var ts=toInteger(t);
+    var begin = now(),duration=3000;
+    var driftX=500;
+    var end = begin + duration;
+   var x1 = driftX * ((end - begin) / duration), y1 =0.001*x*x -2*x+3;
+    var t2=(ts - begin)/ duration,t3=end-begin;
+    var x=toInteger(x1),y=toInteger(y1);
+       function domove(){
+           oDiv.style.left=x+"px";
+           oDiv.style.top =y+"px";
+          // alert(x+","+y+"y:"+oDiv.offsetTop)
+       }
+   //alert(x+","+y+"y:"+oDiv.offsetTop)
+        //oDiv.style.marginLeft = x + "px";
+       // oDiv.style.marginTop = y + "px";
+        //alert("2:"+oDiv.offsetLeft+":"+oDiv.offsetTop)
+    window.onload=function(){
+        var set=setInterval(function(){
+          x++
+
+        },13);
+        console.log(begin,end,x,y,ts,t2,t3);
+        domove();
+    }
+</script>
+</body>
+</html>

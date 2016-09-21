@@ -11,7 +11,7 @@
             position: absolute;
             width: 100px;
             height: 100px;
-            top: 380px;
+            top: 480px;
             left: 100px;
         }
     </style>
@@ -23,8 +23,14 @@
     var bool = new Parabola({
         el: "#boy",
         offset: [500, 100],
-        curvature: 0.0008,
+        curvature: 0.01,
         duration: 3000,
+        stepCallback:function(){
+            var sca=1;
+            var oDiv=document.getElementById('boy');
+            oDiv.style.height=oDiv.offsetHeight+sca+"px";
+            oDiv.style.width=oDiv.offsetWidth+sca+"px";
+        }
     });
     window.onload=function(){
         bool.start();

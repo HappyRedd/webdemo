@@ -120,12 +120,16 @@
                 //x 每一步的X轴的位置
                 x = this.driftX * ((now - this.begin) / this.duration);
                 //每一步的Y轴的位置y = a*x*x + b*x + c;   c==0;
+              //  y =0.01*x*x -2*x;
                 y = this.curvature * x * x + this.b * x;
 
                 this.domove(x, y);
                 if (typeof ops.stepCallback === 'function') {
                     ops.stepCallback.call(this,x,y);
                 }
+                var d=now - this.begin,t1=(now - this.begin) / this.duration;
+                console.log("n:"+now+",b:"+this.begin+",d:"+d+",t1:"+t1);
+                console.log(",this.driftX:"+this.driftX+",x:"+x);
             }
             return this;
         },
@@ -163,7 +167,6 @@
             this.timerId = setInterval(function () {
                 var t = now();
                 self.step(t);
-
             }, 13);
             return this;
         },
