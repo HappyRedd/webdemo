@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#div1{ width: 100px; height: 100px; background-color: #4D4D4D; position: absolute; cursor: pointer; -webkit-box-shadow: 3px 3px 0px 3px #C7C7C7; box-shadow: 3px 3px 3px 0px #C7C7C7; }
+		#parent{ width: 500px; height: 500px; border: 1px solid #CDCDCD; position: relative; margin: 0 auto; background-color: #F4F4F4; }
+	</style>
+</head>
+<body>
+	<div id="parent">
+		<div id="div1"></div>
+	</div>
+	<script type="text/javascript">
+	    
+window.onload = function (){
+	var oDiv = document.getElementById('div1');
+	var oParent = document.getElementById('parent');
+	var sent = {
+		l : 0,
+		r : oParent.offsetWidth - oDiv.offsetWidth,
+		t : 0,
+		b : oParent.offsetHeight - oDiv.offsetHeight,
+		n : 10
+	}
+
+	drag(oDiv,sent);
+}
+
+
+
+function drag(obj,sent){
+
+	var dmW = document.documentElement.clientWidth || document.body.clientWidth;
+	var dmH = document.documentElement.clientHeight || document.body.clientHeight;
+
+
+	var sent = sent || {};
+	var l = sent.l || 0;
+	var r = sent.r || dmW - obj.offsetWidth;
+	var t = sent.t || 0;
+	var b = sent.b || dmH - obj.offsetHeight;
+	var n = sent.n || 10;
+
+	obj.onmousedown = function (ev){
+		var oEvent = ev || event;
+		var sentX = oEvent.clientX - obj.offsetLeft;
+		var sentY = oEvent.clientY - obj.offsetTop;
+		document.onmousemove = function (ev){
+			var oEvent = ev || event;
+
+			var slideLeft = oEvent.clientX - sentX;
+			var slideTop = oEvent.clientY - sentY;
+
+			if(slideLeft <= l){
+				slideLeft = l;
+			}
+			if(slideLeft >= r){
+				slideLeft = r;
+			}
+			if(slideTop <= t){
+				slideTop = t;
+			}
+			if(slideTop >= b){
+				slideTop = b;
+			}
+
+			obj.style.left = slideLeft + 'px';
+			obj.style.top = slideTop + 'px';
+		}
+
+		document.onmouseup = function (){
+			document.onmousemove = null;
+			document.onmouseup = null;
+		}
+
+		return false;
+	}
+}
+	</script>
+</body>
+</html>
