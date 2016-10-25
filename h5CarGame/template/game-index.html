@@ -1,0 +1,533 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>极速超越</title>
+    <meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">
+  <!--  <link href="http://ghmagical.com/favicon.ico" rel="shortcut icon" />-->
+    <link rel="stylesheet" href="css/NSlide.css" />
+    <style>
+        @font-face {
+            font-family: 'illusion';
+            src: url(fonts/fangzheng_glt.woff);
+        }
+
+        body {
+            font: 30px/1.5 illusion, "microsoft yahei";
+        }
+
+        .slide {
+            background: #F8F8F8;
+        }
+
+        .loading-page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            z-index: 10000;
+        }
+
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            display: inline-block;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 6rem;
+            color: #333;
+            font-size: 2rem;
+            border: 3px solid #fff;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        .circleloading {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            text-align: center;
+            overflow: hidden;
+            margin-top: -60px;
+        }
+
+        .circleloading img {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 160px;
+            height: 160px;
+            z-index: 10;
+        }
+
+        .circleloading,
+        .circleloading img,
+        .left,
+        .right {
+            border-radius: 50%;
+        }
+
+        .left,
+        .right {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            clip: rect(0, 100px, 200px, 0);
+            background: #fff;
+        }
+
+        .left {
+            z-index: 7;
+            background: #afe4dd;
+        }
+
+        .right {
+            z-index: 8;
+        }
+
+        .bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .road1 {
+            width: 640px;
+            height: 1346px;
+            float: left;
+            top: 0px;
+            left: 0;
+            position: absolute;
+            z-index: 1000;
+        }
+
+        .road1_DH,
+        .road2_DH {
+            animation-duration: 5000ms;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            -webkit-animation-duration: 5000ms;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-timing-function: linear;
+        }
+
+        .road1_DH {
+            animation-name: road1_DH;
+            -webkit-animation-name: road1_DH;
+        }
+
+        @keyframes road1_DH {
+            0% {
+                transform: translate(0px, 0px)
+            }
+            50% {
+                transform: translate(0px, 1336px);
+            }
+            50.1% {
+                transform: translate(0px, -1336px);
+            }
+            100% {
+                transform: translate(0px, 0px);
+            }
+        }
+
+        @-webkit-keyframes road1_DH {
+            0% {
+                -webkit-transform: translate(0px, 0px)
+            }
+            50% {
+                -webkit-transform: translate(0px, 1336px);
+            }
+            50.1% {
+                -webkit-transform: translate(0px, -1336px);
+            }
+            100% {
+                -webkit-transform: translate(0px, 0px);
+            }
+        }
+        /*
+         * 路的逻辑
+         * 0%-50% road1 Y：0-1336px  road2 Y：-1336px-0
+         * 50.1% road1 Y：-1336px
+         * 50%-100%  road1：-1336px-0  road2 Y：0-1336px
+         * */
+
+        .road2 {
+            width: 640px;
+            height: 1346px;
+            float: left;
+            top: 0px;
+            left: 0;
+            position: absolute;
+            z-index: 1000;
+        }
+
+        .road2_DH {
+            animation-name: road2_DH;
+            -webkit-animation-name: road2_DH;
+        }
+
+        @keyframes road2_DH {
+            0% {
+                transform: translate(0px, -1336px)
+            }
+            50% {
+                transform: translate(0px, 0px)
+            }
+            100% {
+                transform: translate(0px, 1336px);
+            }
+        }
+
+        @-webkit-keyframes road2_DH {
+            0% {
+                -webkit-transform: translate(0px, -1336px)
+            }
+            50% {
+                -webkit-transform: translate(-0, 0px)
+            }
+            100% {
+                -webkit-transform: translate(0px, 1336px);
+            }
+        }
+
+        .loading-num {
+            font-size: 30px;
+        }
+
+        #game {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            z-index: 1001;
+            -webkit-transform: translate(-50%, 0);
+            transform: translate(-50%, 0);
+        }
+
+        #button {
+            position: absolute;
+            right: 20px;
+            bottom: 50px;
+            z-index: 9999;
+            color: #fff;
+        }
+
+        #button span {
+            display: block;
+            float: left;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 1px solid #d9d9d9;
+            color: #000;
+            text-align: center;
+            margin-right: 20px;
+            line-height: 70px;
+            background: rgba(255, 255, 255, .7);
+        }
+
+        .blood {
+            position: absolute;
+            top: 10px;
+            color: red;
+            left: 0;
+            width: 120px;
+            font-size: 30px;
+            text-align: center;
+            z-index: 10000;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-flex-wrap: wrap;
+            flex-wrap: wrap;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+        }
+
+        .blood i {
+            padding: 5px 0;
+        }
+
+        #begin {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            width: 200px;
+            height: 60px;
+            font-size: 30px;
+            background: -webkit-linear-gradient(top, #363636, #010101, #363636);
+            background: linear-gradient(top, #363636, #010101, #363636);
+            color: #fff;
+            border-radius: 4px;
+            border: none;
+            -webkit-transform: translate(-50%, 0);
+            transform: translate(-50%, 0);
+        }
+
+        .title {
+            font-family: illusion;
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            font-size: 80px;
+            color: #fff;
+            white-space: nowrap;
+            -webkit-transform: translate(-50%, 0);
+            transform: translate(-50%, 0);
+        }
+
+        .btns {
+            display:none;
+            z-index: 1000;
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            bottom: 10%;
+            left: 50%;
+            fill: #34a4e4;
+            margin-left:-50px;
+            -webkit-animation: none;
+            -o-animation: none;
+            animation: none;
+            border: 1px solid rgba(255, 255, 255, 1);
+            border-radius: 100%;
+            padding: 3px;
+            -webkit-transition: 0.5s all ease;
+            -o-transition: 0.5s all ease;
+            transition: 0.5s all ease;
+        }
+        .btns svg{
+
+            -webkit-animation: rotate360 4s linear infinite;
+            -o-animation: rotate360 4s linear infinite;
+            animation: rotate360 4s linear infinite;
+        }
+        .btns div{
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:108px;
+            line-height:108px;
+            color:#fff;
+            text-align: center;
+        }
+
+        @keyframes rotate360 {
+            0% {
+                -webkit-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        @-webkit-keyframes rotate360 {
+            0% {
+                -webkit-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        .score{
+            position:absolute;
+            right:30px;
+            top:20px;
+            color:#fff;
+            z-index:10000;
+        }
+        .rule{
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,.9);
+            z-index:1000;
+            display:none;
+        }
+        .phone{
+            position:absolute;
+            top:50%;
+            left:50%;
+            width:500px;
+            -webkit-transform:translate(-50%,-50%);
+            transform:translate(-50%,-50%);
+        }
+        .spin{
+            -webkit-animation:spin 1.5s infinite linear;
+            animation:spin 1.5s infinite linear;
+        }
+        @keyframes spin{
+            0%{
+                -webkit-transform:translate(-50%,-50%) rotateY(0);
+                transform:translate(-50%,-50%) rotateY(0);
+            }
+            25%{
+                -webkit-transform:translate(-50%,-50%) rotateY(20deg);
+                transform:translate(-50%,-50%) rotateY(20deg);
+            }
+            50%{
+                -webkit-transform:translate(-50%,-50%) rotateY(0);
+                transform:translate(-50%,-50%) rotateY(0);
+            }
+            75%{
+                -webkit-transform:translate(-50%,-50%) rotateY(-20deg);
+                transform:translate(-50%,-50%) rotateY(-20deg);
+            }
+            100%{
+                -webkit-transform:translate(-50%,-50%) rotateY(0);
+                transform:translate(-50%,-50%) rotateY(0);
+            }
+        }
+        @-webkit-keyframes spin{
+            0%{
+                -webkit-transform:translate(-50%,-50%) rotateY(0);
+                transform:translate(-50%,-50%) rotateY(0);
+            }
+            25%{
+                -webkit-transform:translate(-50%,-50%) rotateY(20deg);
+                transform:translate(-50%,-50%) rotateY(20deg);
+            }
+            50%{
+                -webkit-transform:translate(-50%,-50%) rotateY(0);
+                transform:translate(-50%,-50%) rotateY(0);
+            }
+            75%{
+                -webkit-transform:translate(-50%,-50%) rotateY(-20deg);
+                transform:translate(-50%,-50%) rotateY(-20deg);
+            }
+            100%{
+                -webkit-transform:translate(-50%,-50%) rotateY(0);
+                transform:translate(-50%,-50%) rotateY(0);
+            }
+        }
+        #go{
+            position: absolute;
+            top: 370px;
+            left: 50%;
+            width: 200px;
+            height: 50px;
+            font-size: 30px;
+            background: transparent;
+            border: 1px solid #fff;
+            color: #fff;
+            border-radius:5px;
+            -webkit-transform:translate(-50%,0);
+            transform:translate(-50%,0);
+        }
+    </style>
+</head>
+
+<body>
+<div class="page">
+    <div class="container">
+        <div class="wrapper">
+            <div class="slide">
+                <canvas id="bg"></canvas>
+                <div class="btns">
+                    <svg viewBox="0 0 141.7 141.7">
+                        <g stroke-width="0">
+                            <path  d="M70.9,131.9c-25.3,0-47.6-15.3-56.8-38.9l2.8-1.1c8.8,22.4,30,37,54,37c24.1,0,45.3-14.5,54-37l2.8,1.1C118.5,116.6,96.2,131.9,70.9,131.9z"></path>
+                            <path  d="M124.9,49.8c-8.8-22.4-30-36.9-54-36.9c-24.1,0-45.3,14.5-54,36.9L14,48.7C23.2,25.1,45.5,9.9,70.9,9.9c25.3,0,47.6,15.3,56.8,38.9L124.9,49.8z"></path>
+                            <animate attributeName="fill-opacity" begin="0s" dur="1s" values=".5;1;.5" repeatCount="indefinite"></animate>
+                        </g>
+                    </svg>
+                    <div>开始</div>
+                </div>
+                <div class="rule">
+                    <img src="images/phone.png" alt="" class="phone" />
+                    <button id="go">GO</button>
+                </div>
+            </div>
+            <div class="slide">
+                <div id="game"></div>
+                <div class="blood"> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i>
+                    <i class="fa fa-heart"></i>
+                    <i class="fa fa-heart"></i>
+                    <i class="fa fa-heart"></i>
+                </div>
+                <div class="score">分数：0</div>
+            </div>
+        </div>
+        <div class="loading-page">
+            <div class="loading">
+                <div class="circleloading">
+                    <div class="left"></div>
+                    <div class="right"></div>
+                    <img src="images/racing_logo.png" alt="" />
+                </div>
+                <div class="loading-num">0%</div>
+            </div>
+        </div>
+    </div>
+</div>
+<audio  id="mic" loop>
+    <source src="res/car.mp3">
+</audio>
+<script src='js/NSlide.js'></script>
+<script src="js/phaser.min.js"></script>
+<script src="js/racing.js?id=0"></script>
+<script>
+    function showp1() {
+
+    };
+
+    function showp2() {
+
+    };
+    var myNSlide = new NSlide('.container', {
+        duration: 300,
+        onInit: function(nslide) {
+
+        },
+        onSlideChangeEnd: function(nslide) {
+            eval("showp" + (nslide.activeIndex+1) + "()");
+        },
+        onImagesReady: function(nslide) {
+
+        }
+    });
+    document.querySelector('.btns').addEventListener("click", function() {
+        if(typeof canvas.clickBtn !== 'undefined'){
+            document.querySelector('.rule').style.display='block';
+            document.querySelector('.phone').classList.add('spin');
+        }
+    });
+    document.getElementById("go").addEventListener('click',function(){
+        myNSlide.slideNext();
+        setTimeout(function(){
+            game.state.start('play');
+        },1000);
+    });
+</script>
+</body>
+
+</html>

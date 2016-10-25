@@ -1,0 +1,321 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>H5案例--极速超越</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        html {
+            font-size: 62.5%;
+        }
+
+        body {
+            font-family: "microsoft yahei";
+            font-size: 1.4rem;
+            color: #333;
+            background: url(images/main-bg.jpg) no-repeat;
+            background-position: center center;
+            background-size: cover;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+        /*.page {
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 320px;
+            height: 504px;
+            margin: -252px 0 0 -160px;
+            overflow: hidden;
+            background: rgb(255, 255, 255);
+        }
+
+        .swiper-container,
+        .swiper-slide {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }*/
+
+        .review-board {
+            position: relative;
+            width: 960px;
+            margin: 0 auto;
+            height:614px;
+
+        }
+        @media screen and (min-width:1500px){
+            .review-board{
+                top:50%;
+                -webkit-transform:translateY(-50%);
+                transform:translateY(-50%);
+            }
+        }
+
+        .review-phone {
+            width: 326px;
+            height: 614px;
+            position: absolute;
+            left: 0;
+            top: -2px;
+            background: #fff;
+            padding: 0 3px;
+            border-radius: 30px;
+            transition: all 1s;
+            box-shadow: 0 0 3px 3px #666;
+        }
+
+        .phone-nav-line {
+            width: 30px;
+            height: 8px;
+            border-radius: 5px;
+            position: absolute;
+            left: 50%;
+            margin-left: -15px;
+            top: 5px;
+            background: #5B5B5B;
+        }
+
+        .phone-header {
+            margin-top: 30px;
+            height: 50px;
+        }
+
+        .phone-nav {
+            height: 50px;
+            background: #333;
+            position: relative;
+            color: #fff;
+        }
+
+        .phone-nav-dian {
+            font-size: 25px;
+            position: absolute;
+            top: 0;
+            line-height: 0;
+            left: 5px;
+        }
+
+        .phone-battery {
+            position: absolute;
+            right: 6px;
+            top: 2px;
+            color: #fff;
+            font-size: 10px;
+        }
+
+        .phone-container {
+            width: 320px;
+            height: 504px;
+            background: #ccc;
+            position: relative;
+        }
+
+        .phone-footer {
+            height: 30px;
+        }
+        .page-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+
+        .page-background,
+        .elements-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .arrow {
+            position: absolute;
+            right: -30px;
+            top: 140px;
+            width: 30px;
+        }
+
+        .arrow-prev {
+            margin-bottom: 15px;
+        }
+
+        .arrow-next,
+        .arrow-prev {
+            width: 30px;
+            background: #2096f9;
+            color: #fff;
+            padding: 20px 8px;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            cursor: pointer;
+        }
+
+        .review-content {
+            position: absolute;
+            right: 0;
+            top: -2px;
+            width: 400px;
+            height: 614px;
+            padding: 0 20px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            background: rgba(255, 255, 255, .8);
+        }
+
+        .review-qrcode {
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px dashed #999;
+            border-bottom: 1px dashed #999;
+        }
+
+        .qcode {
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .review-title {
+            padding: 20px 0;
+        }
+
+        .review-title p {
+            padding-top: 10px;
+            color: #666;
+        }
+
+        .review-phoneurl {
+            padding: 10px 0;
+        }
+
+        .review-phoneurl span {
+            padding-right: 8px;
+        }
+
+        .review-phoneurl input {
+            width: 221px;
+            padding: 5px 8px;
+            margin: 0;
+            font: inherit;
+            color: inherit;
+            background-color: #FAFAFA;
+            border: #dcdcdc 1px solid;
+            border-radius: 5px;
+        }
+
+        .review-phoneurl a {
+            color: #5AAEEB;
+            padding-left: 8px;
+        }
+
+        a:link,
+        a:visited {
+            text-decoration: none;
+        }
+
+        .review-share {
+            padding-top: 20px;
+        }
+
+        .box {
+            width: 100%;
+            height: 300px;
+        }
+        .arrow a{
+            color:#fff;
+        }
+    </style>
+</head>
+
+<body>
+<div class="review-board">
+    <div class="review-phone">
+        <div class="phone-header">
+            <div class="phone-nav">
+                <span class="phone-nav-dian">....</span>
+                <div class="phone-nav-line"></div>
+                <span class="fa fa-battery-half phone-battery"></span>
+            </div>
+        </div>
+        <div class="phone-container">
+            <iframe id="app_frame" src="template/game-index.html" width="320" height="504" name="app_frame" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" rel="nofollow"></iframe>
+        </div>
+        <div class="phone-footer">
+
+        </div>
+        <div class="arrow">
+            <div class="arrow-prev"><a href="javascript:iApp.prev();">上一页</a></div>
+            <div class="arrow-next"><a href="javascript:iApp.next();">下一页</a></div>
+        </div>
+    </div>
+    <div class="review-content">
+        <div class="review-title">
+            <h4>极速超越</h4>
+            <p>老司机开车啦！</p>
+        </div>
+        <div class="review-qrcode">
+            <div class="qcode"></div>
+            <p>手机扫一扫，分享给好友</p>
+        </div>
+        <div class="review-share">
+            <div class="review-phoneurl">
+                <span>分享网址 </span>
+                <input type="text" value="" id="share-url" />
+                <a href="javascript:docopy();" title="复制网址">复制网址</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/jquery.qrcode.min.js"></script>
+<script>
+    function docopy() {
+        var target = document.getElementById("share-url");
+        target.select();
+        document.execCommand("copy");
+    }
+    $(function() {
+        var moduleUrl =  $("#app_frame").attr("src");
+        $("#share-url").val(moduleUrl);
+        $(".qcode").qrcode({
+            width: 200,
+            height: 200,
+            text: moduleUrl
+        });
+    });
+    var iApp = (function() {
+        var appFrame = document.getElementById('app_frame');
+        var appWin = appFrame.contentWindow;
+        return {
+            prev: function() {
+            },
+            next: function() {
+                if(appWin.myNSlide!=undefined && appWin.myNSlide!=null){
+                    appWin.myNSlide.slideNext();
+                }
+
+            }
+        }
+    })();
+</script>
+</body>
+
+</html>

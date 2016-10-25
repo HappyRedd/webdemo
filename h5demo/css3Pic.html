@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>css图形实现</title>
+	<style type="text/css">
+		div{
+			margin:20px;
+		}
+		/*css图形变换原理*/
+		#border-Style-w{
+			width: 100px;
+			height: 100px;
+			border-top:100px solid #0f0;
+			border-right:100px solid #f00;
+			border-bottom:100px solid #f0f;
+			border-left:100px solid #00f;
+		}
+		#border-Style{
+			width: 0;
+			height: 0;
+			position: relative;
+			border-top:100px solid #0f0;
+			border-right:100px solid #f00;
+			border-bottom:100px solid #f0f;
+			border-left:100px solid #00f;
+		}
+		#border-Style:before{
+			content: '';
+			width: 0;
+			height: 0;
+			border-left:1px solid #000;
+			border-top:110px solid #000;
+			border-bottom:110px solid #000;
+		}
+		#border-Style:after{
+			content: '';
+			width: 0;
+			height: 0;
+			position: absolute;
+			left:-105px;
+			top:0;
+			border-left:110px solid #000;
+			border-top:1px solid #000;
+			border-right:110px solid #000;
+		}
+		/*正方形*/
+		#square{
+			width: 100px;
+			height: 100px;
+			background-color:red;
+		}
+		/*矩形*/
+		#rectangle{
+			width: 200px;
+			height: 100px;
+			background-color: red;
+		}
+		/*圆*/
+		#cricle{
+			width: 100px;
+			height: 100px;
+			background-color: red;
+			border-radius:50%;
+		}
+		/*椭圆*/
+		#oval{
+			width: 200px;
+			height: 100px;
+			background-color: red;
+			border-radius:100px/50px;//????
+		}
+		/*上三角*/
+		#triangle-Up{
+			width: 0;
+			height: 0;
+			border-bottom: 40px solid red;
+			border-left:20px solid transparent;
+			border-right:20px solid transparent;
+		}
+		/*下三角*/
+		#triangle-Down{
+			width: 0;
+			height: 0;
+			border-top:40px solid red;
+			border-left:20px solid transparent;
+			border-right:20px solid transparent;
+		}
+		/*左下三角*/
+		#triangle-BottomLeft{
+			width: 0;
+			height: 0;
+			border-bottom: 40px solid red;
+			border-right:40px solid transparent;
+		}
+		/*右下三角*/
+		#triangle-BottomRight{
+			width: 0;
+			height: 0;
+			border-bottom:40px solid red;
+			border-left:40px solid transparent;
+		}
+		/*左上三角*/
+		#triangle-TopLeft{
+			width: 0;
+			height: 0;
+			border-top:40px solid red;
+			border-right:40px solid transparent;
+		}
+		/*右上三角*/
+		#triangle-TopRight{
+			width: 0;
+			height: 0;
+			border-top:40px solid red;
+			border-left:40px solid transparent;
+		}
+		/*旋转箭头*/
+		#curvedarrow{
+			position:relative;
+			width: 0;
+			height: 0;
+			border-top:9px solid transparent;
+			border-right:9px solid red;
+			transform:rotate(10deg);
+		}
+		#curvedarrow:after{
+			content:"";
+			position:absolute;
+			border:0 solid transparent;
+			border-top:3px solid red;
+			border-radius:20px 0 0 0;
+			top:-12px;
+			left:-9px;
+			width: 12px;
+			height: 12px;
+			transform:rotate(45deg);
+		}
+		/*旋转箭头*/
+		#curvedarrow01{
+			position: relative;
+			width: 0;
+			height: 0;
+			border-bottom: 9px solid red;
+			border-right:9px solid transparent;
+			transform:rotate(65deg);
+		}
+		#curvedarrow01:after{
+			content:"";
+			position:absolute;
+			border:0 solid transparent;
+			border-top:3px solid red;
+			border-radius:20px 0 0 0;
+			width: 12px;
+			height: 12px;
+			top:-10px;
+			left:-2px;
+			transform:rotate(135deg);
+
+		}
+		/*旋转箭头*/
+		#curvedarrow02{
+			position: relative;
+			width: 0;
+			height: 0;
+			border-top:9px solid red;
+			border-right:9px solid transparent;
+			transform: rotate(15deg);
+		}
+		#curvedarrow02:after{
+			content:"";
+			position:absolute;
+			border:0 solid transparent;
+			border-top:3px solid red;
+			border-radius:20px 0 0 0;
+			width: 12px;
+			height: 12px;
+			top:-15px;
+			left:4px;
+			transform:rotate(215deg);
+		}
+		/*梯形*/
+		#trapezoid{
+			width: 100px;
+			height: 0;
+			border-bottom: 40px solid red;
+			border-left:40px solid transparent;
+			border-right:40px solid transparent;
+		}
+		/*平行四边形*/
+		#parallelogram{
+			width: 200px;
+			height: 100px;
+			transform:skew(20deg);
+			background-color: red;
+		}
+		/*六角形*/
+		#star-Six{
+			width: 0;
+			height: 0;
+			border-left:50px solid transparent;
+			border-right:50px solid transparent;
+			border-bottom:100px solid red;
+			position:relative;
+		}
+		#star-Six:after{
+			width: 0;
+			height: 0;
+			border-top:100px solid red;
+			border-right:50px solid transparent;
+			border-left:50px solid transparent;
+			position:absolute;
+			top:30px;
+			left:-50px;
+			content:"";
+		}
+		/*五角星*/
+		#star-Five{
+			margin: 50px 0;
+			position: relative;
+			display:block;
+			color:red;
+			width: 0;
+			height: 0;
+			border-right:100px solid transparent;
+			border-bottom:70px solid red;
+			border-left:100px solid transparent;
+			transform:rotate(35deg);
+		}
+		#star-Five:before{
+			border-bottom:80px solid red;
+			border-left:30px solid transparent;
+			border-right:30px solid transparent;
+			position:absolute;
+			height: 0;
+			width: 0;
+			top:-45px;
+			left:-65px;
+			display: block;
+			content:"";
+			transform:rotate(-35deg);
+		}
+		#star-Five:after{
+			position:absolute;
+			display:block;
+			color:red;
+			top:3px;
+			left:-105px;
+			width: 0;
+			height: 0;
+			border-right:100px solid transparent;
+			border-bottom:70px solid red;
+			border-left:100px solid transparent;
+			transform:rotate(-70deg);
+			content:"";
+		}
+		/*五角形*/
+		#pentagon{
+			position:absolute;
+			width: 54px;
+			border-width:50px 18px 0;
+			border-style:solid;
+			border-color:red transparent;
+		}
+		#pentagon:before{
+			content:"";
+			position:absolute;
+			height: 0;
+			width: 0;
+			top:-85px;
+			left:-18px;
+			border-width:0 45px 35px;
+			border-style:solid;
+			border-color:transparent transparent red;
+		}
+		/*六角形*/
+		#hexagon{
+			margin: 200px 0 0 0;
+			width: 100px;
+			height: 55px;
+			background-color: red;
+			position:relative;
+		}
+		#hexagon:before{
+			content:'';
+			position:absolute;
+			top:-25px;
+			left:0;
+			width:0;
+			height: 0;
+			border-left:50px solid transparent;
+			border-right:50px solid transparent;
+			border-bottom:25px solid red;
+		}
+		#hexagon:after{
+			content:'';
+			position:absolute;
+			bottom:-25px;
+			left:0;
+			width: 0;
+			height: 0;
+			border-left:50px solid transparent;
+			border-right:50px solid transparent;
+			border-top:25px solid red;
+		}
+		/*八边形*/
+		#octagon{
+			margin: 100px 0 0 0;
+			width: 100px;
+			height: 100px;
+			background-color: red;
+			position:relative;
+		}
+		#octagon:before{
+			content:'';
+			position:absolute;
+			top:0;
+			left:0;
+			border-bottom:29px solid red;
+			border-left:29px solid #fff;
+			border-right:29px solid #fff;
+			width: 42px;
+			height: 0;
+		}
+		#octagon:after{
+			content:'';
+			position:absolute;
+			bottom:0;
+			left:0;
+			border-top:29px solid red;
+			border-left:29px solid #fff;
+			border-right:29px solid #fff;
+			width:42px;
+			height: 0;
+		}
+		/*心形*/
+		#heart{
+			position:relative;
+			width:100px;
+			height: 90px;
+		}
+		#heart:before,
+		#heart:after{
+			position:absolute;
+			content:'';
+			left:50px;
+			top:0;
+			width: 50px;
+			height: 80px;
+			background-color: red;
+			border-radius:50px 50px 0 0;
+			transform:rotate(-45deg);
+			transform-origin:0 100%;
+		}
+		#heart:after{
+			left:0;
+			transform:rotate(45deg);
+			transform-origin:100% 100%;
+		}
+		/*无穷大*/
+		#infinity{
+			position: relative;
+			width: 212px;
+			height: 100px;
+		}
+		#infinity:before,#infinity:after{
+			content:'';
+			position:absolute;
+			top:0;
+			left:0;
+			width: 60px;
+			height: 60px;
+			border:20px solid red;
+			border-radius:50px 50px 0 50px;
+			transform:rotate(-45deg);
+		}
+		#infinity:after{
+			left:auto;
+			right:0;
+			border-radius: 50px 50px 50px 0;
+			transform:rotate(45deg);
+		}
+		/*月亮*/
+		#moon{
+			width: 80px;
+			height: 80px;
+			border-radius:50%;
+			box-shadow:15px 15px 0 0 red;
+		}
+		/*圆锥*/
+		#cone{
+			width: 0;
+			height: 0;
+			border-left: 70px solid transparent;
+			border-right: 70px solid transparent;
+			border-top:100px solid red;
+			border-radius:50%;
+		}
+		/*太急*/
+		#taiji{
+			width: 96px;
+			height: 48px;
+			background-color: #fff;
+			border:2px solid #000;
+			border-bottom-width: 50px;
+			border-radius:100%;
+			position:relative;
+		}
+		#taiji:before{
+			content:'';
+			position:absolute;
+			top:50%;
+			left:0;
+			background-color: #fff;
+			border:18px solid #000;
+			border-radius:100%;
+			width: 12px;
+			height: 12px;
+		}
+		#taiji:after{
+			content:'';
+			position:absolute;
+			top:50%;
+			left:50%;
+			background-color:#000;
+			border:18px solid #fff;
+			border-radius:100%;
+			width: 12px;
+			height: 12px;		}
+		/*对话框*/
+		#talkbubble{
+			width: 120px;
+			height: 80px;
+			background-color: #fff;
+			position:relative;
+			border-radius:10px;
+			border:2px solid #ccc;
+		}
+		#talkbubble:after{
+			content:'';
+			position:absolute;
+			width: 0;
+			height: 0;
+			border-top:13px solid transparent;
+			border-right:26px solid #ccc;
+			border-bottom: 13px solid transparent;
+			right: 100%;
+			top:26px;
+		}
+	</style>
+</head>
+<body>
+	<div id="border-Style-w"></div>
+	<div id="border-Style"></div>
+
+	<div id="square"></div>
+	<div id="rectangle"></div>
+	<div id="cricle"></div>
+	<div id="oval"></div>
+	<div id="triangle-Up"></div>
+	<div id="triangle-Down"></div>
+	<div id="triangle-BottomLeft"></div>
+	<div id="triangle-BottomRight"></div>
+	<div id="triangle-TopLeft"></div>
+	<div id="triangle-TopRight"></div>
+	<div id="curvedarrow"></div>
+	<div id="curvedarrow01"></div>
+	<div id="curvedarrow02"></div>
+	<div id="trapezoid"></div>
+	<div id="parallelogram"></div>
+	<div id="star-Six"></div>
+	<div id="star-Five"></div>
+	<div id="pentagon"></div>
+	<div id="hexagon"></div>
+	<div id="octagon"></div>
+	<div id="heart"></div>
+	<div id="infinity"></div>
+	<div id="moon"></div>
+	<div id="cone"></div>
+	<div id="taiji"></div>
+	<div id="talkbubble"></div>
+</body>
+</html>
