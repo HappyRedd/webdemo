@@ -37,17 +37,17 @@ game.states.boot = function() {
 game.states.preload = function() {
     this.preload = function() {
         for(var i = 0; i < 14; i++) {
-            game.load.image('bg' + i, 'images/bg' + i + '.png');
+            game.load.image('bg' + i, '../template/images/bg' + i + '.png');
         };
-        game.load.image('bread1', 'images/gold.png');
-        game.load.image('bread2', 'images/dd.png');
-        game.load.image('bread3', 'images/blood.png');
-        game.load.image('bread4', 'images/speed.png');
-        game.load.image('bombcrack', '/Public/images/pie/bombcrack2.png');
+        game.load.image('bread1', '../template/images/gold.png');
+        game.load.image('bread2', '../template/images/dd.png');
+        game.load.image('bread3', '../template/images/blood.png');
+        game.load.image('bread4', '../template/images/speed.png');
+        game.load.image('bombcrack', '../template/images/bombcrack2.png');
         for(var i = 1; i < 5; i++) {
-            game.load.image('btn' + i, 'images/btn' + i + '.png');
-            game.load.image('floor' + i, 'images/roads' + i + '.jpg');
-            game.load.image('car' + i, 'images/car' + i + '.png');
+            game.load.image('btn' + i, '../template/images/btn' + i + '.png');
+            game.load.image('floor' + i, '../template/images/roads' + i + '.jpg');
+            game.load.image('car' + i, '../template/images/car' + i + '.png');
         };
         loadGroup = game.add.group();
         game.add.text(game.world.centerX - 30, game.world.centerY, '0%', {
@@ -70,14 +70,14 @@ game.states.preload = function() {
         function drawBg() {
             ctx.clearRect(0, 0, config.CANVAS_WIDTH, config.CANVAS_HEIGHT);
             var img = new Image();
-            img.src = '/Public/images/game/racing/js/bg' + num + '.png';
+            img.src = '../template/images/bg' + num + '.png';
             ctx.drawImage(img, 0, 0, config.CANVAS_WIDTH, config.CANVAS_HEIGHT);
             num++;
             if(num >= 13) {
                 clearInterval(timers);
                 ctx.fillStyle = "#fff";
                 ctx.font = "40px bold Arial";
-                var title = '閫夋嫨璧涢亾';
+                var title = '极速超越';
                 ctx.fillText(title, (config.CANVAS_WIDTH - ctx.measureText(title).width) / 2, 120);
 
                 function btnClick() {
@@ -86,7 +86,7 @@ game.states.preload = function() {
                     ctx.lineWidth = w;
                     ctx.strokeRect(this.x - w, this.y - w, this.w + w * 2, this.h + w * 2);
                 };
-                var btn = new Buttons(100, 200, 200, 150, 'images/racing_logo.png', btnClick);
+                var btn = new Buttons(100, 200, 200, 150, '../template/images/racing_logo.png', btnClick);
                 buttons.push(btn);
                 for(var i = 0; i < buttons.length; i++) {
                     var b = buttons[i];
@@ -233,7 +233,7 @@ game.states.play = function() {
         };
         game.add.group(gameGroup);
         resultGroup = game.add.group();
-        var scoreText = game.add.text(140, -1116, "score锛?", {
+        var scoreText = game.add.text(140, -1116, "score分数", {
             font: '34px SimHei',
             fill: '#fff'
         }, resultGroup);
@@ -318,7 +318,7 @@ game.states.play = function() {
                             b.destroy();
                         };
                     };
-                    document.querySelector('.score').innerHTML='鍒嗘暟锛?'+total;
+                    document.querySelector('.score').innerHTML='分数'+total;
                 } else {
                     b.destroy();
                 }
