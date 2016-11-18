@@ -1,0 +1,52 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<title>换色彩色文字-powered by WangXinsheng</title>
+    <style type="text/css">
+    body{
+    overflow:hidden;
+    margin: 0px 0px;
+    font-family: Arial;
+    font-size:60px;
+    background-repeat:no-repeat;
+    }
+    #myContent{
+        text-align: center;
+        line-height: 300px;
+        border-radius:20px;
+        margin: 0px 0px;
+        width:500px;
+        height:300px;
+        font-family:courier;
+        overflow:auto;
+    } 
+    </style>
+</head>
+<body>
+<div id="myContent">
+</div>
+
+<script>
+var message="敬请期待..." ;
+var n=0;
+function changeColor(){
+	$($(".word")[n]).css({"color":"rgb("+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+")","text-shadow":" 5px 5px 5px rgb("+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+")"});
+	if(n>=$(".word").length){
+		n=0;
+	}else{
+		n++;
+	}
+}
+function start(c){
+	var content = "";
+	for(i=0;i<c.length;i++){
+		content +="<span class='word' style='color:rgb("+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+");text-shadow: 5px 5px 5px rgb("+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+");'>"+c.charAt(i)+"</span>";
+	}
+	$("#myContent").append($(content));
+	setInterval("changeColor()",100);
+}
+start(message);
+</script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+﻿<!--
+about me
+-->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<title>打字效果-powered by WangXinsheng</title>
+    <style type="text/css">
+    body{
+    overflow:hidden;
+    margin: 0px 0px;
+    font-family: Arial;
+    font-size:13px;
+    background-repeat:no-repeat;
+    }
+    #myContent, #myContent blink{
+        padding: 10px 0px;
+        background:black;
+        color: #00FF00;
+        border-radius:20px;
+        margin: 0px 0px;
+        width:500px;
+        height:300px;
+        font-family:courier;
+        overflow:auto;
+    }    
+    blink{
+        display:inline;
+    }
+    </style>
+    <script type="text/javascript">    
+    var charIndex = -1;
+    var stringLength = 0;
+    var inputText;
+    function writeContent(init){
+    if(init){
+        inputText = document.getElementById('contentToWrite').innerHTML;
+    }
+        if(charIndex==-1){
+            charIndex = 0;
+            stringLength = inputText.length;
+        }
+        var initString = document.getElementById('myContent').innerHTML;
+        initString = initString.replace(/<SPAN.*$/gi,"");
+        
+        var theChar = inputText.charAt(charIndex);
+           var nextFourChars = inputText.substr(charIndex,4);
+           if(nextFourChars=='<BR>' || nextFourChars=='<br>'){
+               theChar  = '<BR>';
+               charIndex+=3;
+           }
+        charIndex = charIndex/1 +1;
+        $("#blink").remove();
+        $("#myContent").append(theChar+"<SPAN id='blink'>|</SPAN>");
+        $("#myContent").scrollTop($("#myContent")[0].scrollHeight);
+        //windows.scrollTo(0,9999); //效果不好，应该使用jquery的append方法，然后再滚动到底部，这样画面不会有闪动
+if(charIndex%2==1){
+             $('#blink').html("&nbsp;");
+        }else{
+             $('#blink').html('|');
+        }
+                
+        if(charIndex<=stringLength){
+            setTimeout('writeContent(false)',50);
+        }else{
+            blinkSpan();
+        }  
+    }
+    function blinkSpan(){
+        if($('#blink').html()=="&nbsp;"){
+        	$('#blink').html("|");
+        }else{
+        	$('#blink').html("&nbsp;");
+        }
+        setTimeout('blinkSpan()',500);
+    }
+    </script>
+</head>
+<body>
+<div id="myContent">
+<SPAN id='blink'>|</SPAN>
+</div>
+<div id="contentToWrite" style="display:none">
+姓名：xxx<br>
+性别：xx<br>
+年龄：xxxx<br>
+职位：软件工程师<br>
+技能：一大堆 <br>打字效果慢了点，感谢您的耐性等待。<br>
+于 2015年1月1日<br>
+</div>
+<script type="text/javascript">
+writeContent(true);
+</script>
+
+</body>
+</html>
